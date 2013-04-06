@@ -6,7 +6,6 @@ require 'haml'
 require 'composite_primary_keys'
 require 'sinatra/reloader'
 
-
 ActiveRecord::Base.configurations = YAML.load_file('database_niconico.yml')
 ActiveRecord::Base.establish_connection('development')
 
