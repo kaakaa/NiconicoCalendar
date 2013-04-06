@@ -5,7 +5,7 @@ group :production do
   gem 'pg'
 end
 group :development, :test do
-  gem "sqlite3", groups: %w(test development), require: false
+  gem "sqlite3"
 end
 gem "activerecord"
 gem "sinatra", git: 'https://github.com/juanpastas/sinatra.git'
