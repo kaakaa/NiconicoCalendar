@@ -1,7 +1,9 @@
 development:
-  adapter: sqlite3
-  database: db/niconico.db
-
-production:
+#  adapter: sqlite3
+#  database: db/niconico.db
+#production:
   adapter: postgresql
-  database: db/niconico_pos.db
+  encoding: utf-8
+  database: 
+  username:
+  password: 
