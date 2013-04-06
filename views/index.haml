@@ -1,0 +1,59 @@
+%html
+  %head
+    %title 
+      Niconico Calendar
+    %meta{ :charset => "utf-8" }
+    %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" }
+    %link{ :rel => "stylesheet", :href => "/css/bootstrap.css" }
+  %body
+    %h1
+      =@year + '/' + @month
+    %div.input-append
+      %form{ :method => "post", :action => "new" }
+        %input{ :type => "hidden", :name => "year", :value => @year }
+        %input{ :type => "hidden", :name => "month", :value => @month }
+        %input{ :type => "text", :name => "name", :class => "span2" }
+        %input{ :type => "submit", :value => "New User", :class => "btn btn-small" }
+    %table{ :class => "table table-striped table-bordered" }
+      %tr
+        %th{ :width => "50px" }
+        -@name_list.each do |name|
+          %th{ :width => "150px" }
+            %form{ :method => "post", :action => "del" }
+              %span>
+                =name
+                %input{ :type => "hidden", :name => "_method", :value => "delete" }
+                %input{ :type => "submit", :value => "削除", :class => "btn btn-danger btn-small" }
+                %input{ :type => "hidden", :name => "name", :value => name }
+                %input{ :type => "hidden", :name => "year", :value => @year }
+                %input{ :type => "hidden", :name => "month", :value => @month }
+      -for i in 1..31
+        %tr
+          %td
+            =i
+          -@name_list.each do |name|
+            %td
+              %form{ :method => "post", :action => @month + "/regist" }
+                - if @calendar[name][i-1].state == 1
+                  %img{:src => "/icon/happy.png", :width => "40px"}>
+                - elsif @calendar[name][i-1].state == 2
+                  %img{:src => "/icon/soso.png", :width => "40px"}>
+                - elsif @calendar[name][i-1].state == 3
+                  %img{:src => "/icon/bad.png", :width => "40px"}>
+                - else
+                  %span{ :width => "40px" }
+                    N/A
+                %select{ :name => "state", :class => "span1", :onchange => "submit(this.form)" }
+                  %option{ :value => "0", :checked => "checked"}
+                    
+                  %option{ :value => "1" }
+                    GOOD!
+                  %option{ :value => "2" }
+                    So-so.
+                  %option{ :value => "3" }
+                    BAD...
+                %input{ :type => "hidden", :name => "year", :value => @year }
+                %input{ :type => "hidden", :name => "month", :value => @month }
+                %input{ :type => "hidden", :name => "day", :value => i }
+                %input{ :type => "hidden", :name => "name", :value => name }
+          %td

@@ -1,0 +1,41 @@
+%html
+  %head
+    %title 
+      Niconico Calendar
+    %meta{ :charset => "utf-8" }
+    %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" }
+    %link{ :rel => "stylesheet", :href => "/css/bootstrap.css" }
+  %body
+    %h1
+      Niconico Calendar
+    %table{ :class => "table table-sriped" }
+      %tr
+        %th
+          学籍番号
+        %th
+          氏名
+        %th
+          E-mail
+      -@students.each do |stu|
+        %tr
+          %td
+            =stu.id
+          %td
+            =stu.name
+          %td
+            =stu.email
+          %form{ :method => "post", :action => "del" }
+            %td
+              %input{ :type => "submit", :value => "削除", :class => "btn btn-danger"}
+            %input{ :type => "hidden", :name => "id", :value => stu.id }
+            %input{ :type => "hidden", :name => "_method", :value => "delete" }
+      %form{ :method => "post", :action => "new" }
+        %tr
+          %td
+            %input{ :type => "text", :name => "id" }
+          %td
+            %input{ :type => "text", :name => "name" }
+          %td
+            %input{ :type => "text", :name => "email" }
+          %td
+            %input{ :type => "submit", :name => "登録", :class => "btn" }
